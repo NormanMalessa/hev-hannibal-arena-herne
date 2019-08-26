@@ -1,0 +1,5 @@
+RewriteEngine on
+
+# force https
+RewriteCond %{HTTP_HOST} ^hannibal-arena-herne\.de [NC]
+RewriteRule (.*) https://www.hannibal-arena-herne.de/$1 [R=301,L]
