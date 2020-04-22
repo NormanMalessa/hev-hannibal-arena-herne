@@ -15,4 +15,4 @@ jobs:
       - checkout
       - run:
           name: Send Via SFTP
-          command: lftp ftp://${username}:${password}@${hostname} -e "mirror -v -R --exclude .git/ --exclude .circleci/ ./ /test; quit"
+          command: lftp ftp://${username}:${password}@${hostname} -e "mirror -v -R --exclude .git/ --exclude .circleci/ ./ .; quit"
