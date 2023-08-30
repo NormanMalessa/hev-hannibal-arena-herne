@@ -1,5 +1,29 @@
-RewriteEngine on
+## No directory listings
+IndexIgnore *
 
-# force https
-RewriteCond %{HTTP_HOST} ^hannibal-arena-herne\.de [NC]
-RewriteRule (.*) https://www.hannibal-arena-herne.de/$1 [R=301,L]
+## Can be commented out if causes errors, see notes above.
+Options +FollowSymlinks
+Options -Indexes
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
+
+## 3.9.22
+<IfModule mod_autoindex.c>
+  IndexIgnore *
+</IfModule>
+
+## 3.9.21
+<FilesMatch "\.svg$">
+  <IfModule mod_headers.c>
+    Header always set Content-Security-Policy "script-src 'none'"
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
